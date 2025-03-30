@@ -9,7 +9,6 @@ import Skills from "../pages/Skills";
 import Education from "../pages/Education";
 import Contact from "../pages/Contact";
 import Footer from "./components/Footer";
-import SubmissionSuccess from "../pages/SubmissionSuccess";
 
 function App() {
   const [loading, setLoading] = useState(true);
