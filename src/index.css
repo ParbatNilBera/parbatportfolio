@@ -22,3 +22,17 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #6366f1;
 }
+
+/* Change status bar color (notch area) */
+@media (prefers-color-scheme: dark) {
+  meta[name="theme-color"] {
+    content: "#111827E6";
+  }
+}
+
+/* Change browser tab title bar color */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar {
+    background-color: #121212;
+  }
+}
