@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
-import minor from "/public/images/minor.png";
-import major from "/public/images/major.png";
-import ecommerce from "/public/images/Ecommerce.png";
+import minor from "/images/minor.png";
+import major from "/images/major.png";
+import ecommerce from "/images/Ecommerce.png";
 
 const Projects = () => {
   const projects = [

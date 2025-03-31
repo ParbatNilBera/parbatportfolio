@@ -21,7 +21,7 @@ const Footer = () => {
           <div className="flex space-x-6">
             <motion.a
               whileHover={{ y: -5, color: "#6366f1" }}
-              href="https://github.com/Parbatnil"
+              href="https://github.com/ParbatNilBera"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"

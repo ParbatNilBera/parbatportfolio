@@ -10,6 +10,7 @@ import {
   FiBookOpen,
   FiBriefcase,
   FiMail,
+  FiFileText,
 } from "react-icons/fi";
 
 const Navbar = () => {
@@ -38,6 +39,14 @@ const Navbar = () => {
     { title: "Education", path: "/education", icon: <FiBookOpen /> },
     { title: "Contact", path: "/contact", icon: <FiMail /> },
   ];
+
+  // Resume link with external URL
+  const resumeLink = {
+    title: "MyResume",
+    path: "https://docs.google.com/document/d/1OHZg8BcYJt5RZrnhuiJ-P-ZA_bVZu_-QYi4qmPhd_M0/edit?usp=sharing",
+    icon: <FiFileText />,
+    external: true,
+  };
 
   return (
     <motion.nav
@@ -85,6 +94,17 @@ const Navbar = () => {
                 )}
               </Link>
             ))}
+
+            {/* Resume Link with different styling */}
+            <a
+              href={resumeLink.path}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 text-emerald-400 hover:text-emerald-300 transition-colors font-semibold"
+            >
+              <span>{resumeLink.icon}</span>
+              <span>{resumeLink.title}</span>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -122,6 +142,18 @@ const Navbar = () => {
               <span>{link.title}</span>
             </Link>
           ))}
+
+          {/* Resume Link in mobile menu */}
+          <a
+            href={resumeLink.path}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center space-x-3 py-3 text-emerald-400 font-semibold"
+          >
+            <span>{resumeLink.icon}</span>
+            <span>{resumeLink.title}</span>
+          </a>
         </div>
       </motion.div>
     </motion.nav>

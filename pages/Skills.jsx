@@ -115,7 +115,7 @@ const Skills = () => {
 
   return (
     <div className="py-28 min-h-screen">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto my-4 px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ const Skills = () => {
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent mb-4">
             My Skills
           </h1>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto my-6">
             Here's an overview of my technical skills and competencies developed
             through education and projects.
           </p>
