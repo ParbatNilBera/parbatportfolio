@@ -1,5 +1,13 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { FiCode, FiLayout, FiDatabase, FiTool } from "react-icons/fi";
+import {
+  FiCode,
+  FiLayout,
+  FiDatabase,
+  FiTool,
+  FiTerminal,
+  FiCpu,
+} from "react-icons/fi";
 import {
   DiHtml5,
   DiCss3,
@@ -20,6 +28,8 @@ import {
 import { FaJava } from "react-icons/fa6";
 
 const Skills = () => {
+  const [activeTab, setActiveTab] = useState("web");
+
   const webDevelopmentSkills = [
     { name: "HTML", icon: <DiHtml5 />, color: "text-orange-500", level: 90 },
     { name: "CSS", icon: <DiCss3 />, color: "text-blue-500", level: 85 },
@@ -36,12 +46,7 @@ const Skills = () => {
       color: "text-teal-400",
       level: 80,
     },
-    {
-      name: "Node.js",
-      icon: <DiNodejs />,
-      color: "text-green-500",
-      level: 40,
-    },
+    { name: "Node.js", icon: <DiNodejs />, color: "text-green-500", level: 40 },
     {
       name: "Express.js",
       icon: <SiExpress />,
@@ -65,167 +70,284 @@ const Skills = () => {
     },
   ];
 
+  const competencies = [
+    {
+      icon: <FiLayout className="text-3xl text-indigo-400" />,
+      title: "Responsive Design",
+      description:
+        "Creating websites that look great on all devices and screen sizes.",
+    },
+    {
+      icon: <FiCode className="text-3xl text-purple-400" />,
+      title: "Clean Code",
+      description: "Writing maintainable, efficient, and well-documented code.",
+    },
+    {
+      icon: <FiDatabase className="text-3xl text-blue-400" />,
+      title: "Database Management",
+      description: "Basic understanding of database structure and SQL queries.",
+    },
+    {
+      icon: <FiTool className="text-3xl text-green-400" />,
+      title: "Problem Solving",
+      description:
+        "Analytical approach to debugging and feature implementation.",
+    },
+  ];
+
+  // Terminal typing effect
+  const terminalText = "Exploring my tech stack...";
+  const [displayText, setDisplayText] = useState("");
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index < terminalText.length) {
+        setDisplayText((prev) => prev + terminalText.charAt(index));
+        index++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 100);
+
+    const cursorTimer = setInterval(() => {
+      setCursorVisible((prev) => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(cursorTimer);
+    };
+  }, []);
+
+  // No-animation Skill Bar component
   const SkillBar = ({ skill }) => {
     return (
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-        className="mb-6"
-      >
+      <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <div className="flex items-center gap-2">
             <span className={`text-2xl ${skill.color}`}>{skill.icon}</span>
             <span className="font-medium text-gray-200">{skill.name}</span>
           </div>
-          <span className="text-gray-400">{skill.level}%</span>
+          <div className="flex items-center">
+            <code className="text-sm font-mono text-gray-400">
+              {skill.level}%
+            </code>
+          </div>
         </div>
-        <div className="w-full bg-gray-700 rounded-full h-2.5">
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: `${skill.level}%` }}
-            transition={{ duration: 1, delay: 0.1 }}
-            viewport={{ once: true }}
-            className={`h-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600`}
-          ></motion.div>
+        <div className="w-full bg-gray-800 rounded h-2 border border-gray-700 overflow-hidden">
+          <div
+            className={`h-full rounded bg-gradient-to-r from-indigo-600 to-purple-600`}
+            style={{
+              width: `${skill.level}%`,
+              boxShadow: `0 0 10px rgba(139, 92, 246, 0.5)`,
+            }}
+          ></div>
         </div>
-      </motion.div>
+      </div>
     );
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <div className="py-28 min-h-screen">
-      <div className="container mx-auto my-4 px-4 md:px-6">
+    <div className="py-16 min-h-screen bg-gray-900 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-black">
+      <div className="container mx-auto px-4 md:px-6">
+        {/* Terminal-like header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg mb-16 mx-auto max-w-4xl overflow-hidden"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent mb-4">
-            My Skills
-          </h1>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto my-6">
-            Here's an overview of my technical skills and competencies developed
-            through education and projects.
-          </p>
+          <div className="bg-gray-800 px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            <div className="flex-1 text-center">
+              <span className="text-xs text-gray-400 font-mono">skills.js</span>
+            </div>
+          </div>
+          <div className="p-6 font-mono">
+            <div className="flex items-center text-green-400">
+              <span className="mr-2">$</span>
+              <span>{displayText}</span>
+              <span
+                className={`ml-1 ${
+                  cursorVisible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                _
+              </span>
+            </div>
+            <div className="mt-4">
+              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent">
+                &lt;My Skills /&gt;
+              </h1>
+              <p className="text-gray-400 text-lg mt-4 max-w-3xl">
+                A collection of technologies I've learned and use to build
+                awesome digital experiences.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-3 mb-8"
-            >
-              <FiLayout className="text-3xl text-indigo-500" />
-              <h2 className="text-2xl font-bold text-white">Web Development</h2>
-            </motion.div>
-
-            <div className="space-y-6">
-              {webDevelopmentSkills.map((skill, index) => (
-                <SkillBar key={index} skill={skill} />
+        {/* Binary Code Background Element */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
+          <div className="font-mono text-xs text-indigo-500 fixed top-10 left-10">
+            {Array(20)
+              .fill()
+              .map((_, i) => (
+                <div key={i}>
+                  {Array(15)
+                    .fill()
+                    .map((_, j) => Math.round(Math.random()))
+                    .join("")}
+                </div>
               ))}
+          </div>
+          <div className="font-mono text-xs text-purple-500 fixed bottom-10 right-10">
+            {Array(20)
+              .fill()
+              .map((_, i) => (
+                <div key={i}>
+                  {Array(15)
+                    .fill()
+                    .map((_, j) => Math.round(Math.random()))
+                    .join("")}
+                </div>
+              ))}
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-12">
+          <div className="inline-flex bg-gray-800 p-1 rounded-lg shadow-md border border-gray-700">
+            <button
+              onClick={() => setActiveTab("web")}
+              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+                activeTab === "web"
+                  ? "bg-indigo-600 text-white shadow-lg"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              <FiLayout />
+              <span>Web Dev</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("programming")}
+              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+                activeTab === "programming"
+                  ? "bg-purple-600 text-white shadow-lg"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              <FiTerminal />
+              <span>Programming</span>
+            </button>
+            <button
+              onClick={() => setActiveTab("competencies")}
+              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+                activeTab === "competencies"
+                  ? "bg-blue-600 text-white shadow-lg"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              <FiCpu />
+              <span>Core Skills</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Skills Content */}
+        <div className="max-w-5xl mx-auto relative z-10">
+          {/* Web Development */}
+          <div className={`${activeTab === "web" ? "block" : "hidden"}`}>
+            <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-8 shadow-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
+                  <FiLayout className="text-2xl text-indigo-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">
+                  Web Development
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {webDevelopmentSkills.map((skill, index) => (
+                  <SkillBar key={index} skill={skill} />
+                ))}
+              </div>
             </div>
           </div>
 
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center gap-3 mb-8"
-            >
-              <FiCode className="text-3xl text-purple-500" />
-              <h2 className="text-2xl font-bold text-white">
-                Programming Languages & Tools
-              </h2>
-            </motion.div>
+          {/* Programming Languages */}
+          <div
+            className={`${activeTab === "programming" ? "block" : "hidden"}`}
+          >
+            <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-8 shadow-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-purple-500/10 rounded-lg border border-purple-500/20">
+                  <FiCode className="text-2xl text-purple-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">
+                  Programming Languages & Tools
+                </h2>
+              </div>
 
-            <div className="space-y-6">
-              {programmingSkills.map((skill, index) => (
-                <SkillBar key={index} skill={skill} />
-              ))}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {programmingSkills.map((skill, index) => (
+                  <SkillBar key={index} skill={skill} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Core Competencies */}
+          <div
+            className={`${activeTab === "competencies" ? "block" : "hidden"}`}
+          >
+            <div className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-8 shadow-lg">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                  <FiCpu className="text-2xl text-blue-400" />
+                </div>
+                <h2 className="text-2xl font-bold text-white">
+                  Core Competencies
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {competencies.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:border-indigo-500/30 transition-colors hover:shadow-lg group"
+                  >
+                    <div className="mb-4 p-3 bg-gray-900 rounded-lg inline-block group-hover:bg-indigo-900/20 transition-colors">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-400">{item.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-24"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl font-bold text-center text-white mb-12"
-          >
-            Core Competencies
-          </motion.h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: <FiLayout className="text-3xl text-indigo-400" />,
-                title: "Responsive Design",
-                description:
-                  "Creating websites that look great on all devices and screen sizes.",
-              },
-              {
-                icon: <FiCode className="text-3xl text-purple-400" />,
-                title: "Clean Code",
-                description:
-                  "Writing maintainable, efficient, and well-documented code.",
-              },
-              {
-                icon: <FiDatabase className="text-3xl text-blue-400" />,
-                title: "Database Management",
-                description:
-                  "Basic understanding of database structure and SQL queries.",
-              },
-              {
-                icon: <FiTool className="text-3xl text-green-400" />,
-                title: "Problem Solving",
-                description:
-                  "Analytical approach to debugging and feature implementation.",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-indigo-500/50 transition-colors hover:shadow-lg"
-              >
-                <div className="mb-4">{item.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400">{item.description}</p>
-              </motion.div>
-            ))}
+        {/* Code Editor Footer */}
+        <div className="max-w-5xl mx-auto mt-12">
+          <div className="bg-gray-900 border border-gray-700 rounded-lg p-4 flex items-center justify-between text-gray-400">
+            <div className="flex items-center gap-3">
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span className="text-xs font-mono">Ready to collaborate</span>
+            </div>
+            <div className="text-xs font-mono">
+              /* Always learning new skills */
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
