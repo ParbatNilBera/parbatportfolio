@@ -91,7 +91,7 @@ const Projects = () => {
         "An interactive dice game where players guess outcomes to earn points. Features include random dice generation, score tracking, and penalties for incorrect guesses, all wrapped in an engaging user interface.",
       image: "/api/placeholder/600/400",
       category: ["frontend", "mini", "react"],
-      tags: ["React.js", "Tailwind CSS", "Game Development"],
+      tags: ["React.js", "Tailwind CSS", "Game "],
       liveLink: "https://parbatnil-dicegame.netlify.app",
       sourceLink: "https://github.com/ParbatNilBera/Dice-Game",
       codePreview:
@@ -205,8 +205,8 @@ const Projects = () => {
             </span>
             <br />
             <span className="pl-4">
-              role:{" "}
-              <span className="text-green-300">"Full Stack Developer"</span>,
+              role: <span className="text-green-300">"Software Developer"</span>
+              ,
             </span>
             <br />
             <span className="pl-4">

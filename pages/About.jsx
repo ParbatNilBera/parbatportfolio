@@ -69,7 +69,7 @@ export default function About() {
     'const name = "Parbat Nil Bera";',
     'const role = "Software Developer";',
     "function Skills() {",
-    "  return [HTML, CSS, JavaScript, React];",
+    "  return [HTML, CSS, JavaScript, React,C++,Python];",
     "}",
     "class Education extends Component {",
     "  render() {",
