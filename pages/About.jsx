@@ -1,605 +1,634 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import {
-  FiCode,
-  FiLayout,
-  FiServer,
-  FiDatabase,
-  FiTool,
-  FiGitBranch,
-  FiTerminal,
-  FiCpu,
-  FiMonitor,
-} from "react-icons/fi";
+  FaGraduationCap,
+  FaBriefcase,
+  FaCode,
+  FaDatabase,
+  FaTools,
+  FaLaptopCode,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaNodeJs,
+  FaGitAlt,
+  FaPython,
+} from "react-icons/fa";
+import {
+  SiTailwindcss,
+  SiMongodb,
+  SiExpress,
+  SiPostman,
+  SiCplusplus,
+} from "react-icons/si";
 
-const About = () => {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [typedText, setTypedText] = useState("");
-  const [terminalVisible, setTerminalVisible] = useState(false);
-  const fullText =
-    "const developer = { name: 'Parbat Nil Bera', role: 'Full-Stack Developer' };";
+export default function About() {
+  const [activeTab, setActiveTab] = useState("education");
 
-  useEffect(() => {
-    const trackCursor = (e) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
 
-    window.addEventListener("mousemove", trackCursor);
-    return () => window.removeEventListener("mousemove", trackCursor);
-  }, []);
+  const fadeInRight = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+  };
 
-  useEffect(() => {
-    setTimeout(() => {
-      setTerminalVisible(true);
-    }, 500);
+  const fadeInLeft = {
+    hidden: { opacity: 0, x: 30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+  };
 
-    let i = 0;
-    const typeText = () => {
-      if (i < fullText.length) {
-        setTypedText(fullText.slice(0, i + 1));
-        i++;
-        setTimeout(typeText, Math.random() * 50 + 30);
-      }
-    };
-
-    if (terminalVisible) {
-      setTimeout(typeText, 800);
-    }
-  }, [terminalVisible]);
-
-  // Card hover effect
-  const cardVariants = {
-    hover: {
-      y: -10,
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
+        staggerChildren: 0.15,
       },
     },
   };
 
+  const tabVariants = {
+    active: {
+      backgroundColor: "#1E3A8A",
+      color: "white",
+      boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+    },
+    inactive: {
+      backgroundColor: "transparent",
+      color: "#94A3B8",
+    },
+  };
+
+  const codeLines = [
+    "// About Me Component",
+    'import React from "react";',
+    'const name = "Parbat Nil Bera";',
+    'const role = "Software Developer";',
+    "function Skills() {",
+    "  return [HTML, CSS, JavaScript, React];",
+    "}",
+    "class Education extends Component {",
+    "  render() {",
+    "    return <MCA cgpa={7.69} />;",
+    "  }",
+    "}",
+    "export default About;",
+    "async function getinternship() {",
+    '  return await fetch("/api/internship");',
+    "}",
+    "const technologies = useContext(TechContext);",
+    "// End of component",
+  ];
+
+  const educationData = [
+    {
+      degree: "Master of Computer Applications (MCA)",
+      institution: "Techno Main SaltLake",
+      cgpa: "7.69",
+      year: "2023 - 2025",
+    },
+    {
+      degree: "Bachelor of Computer Applications (BCA)",
+      institution: "Calcutta Institute of Engineering and Management",
+      cgpa: "8.79",
+      year: "2020 - 2023",
+    },
+    {
+      degree: "XII (WBCHSE)",
+      institution: "Gandhi Colony Madhamik Vidyalaya",
+      year: "2020",
+    },
+    {
+      degree: "X (WBBSE)",
+      institution: "Gandhi Colony Madhamik Vidyalaya",
+      year: "2018",
+    },
+  ];
+
+  const internshipData = {
+    role: "Frontend React.js Intern",
+    company: "Celebal Technologies",
+    duration: "May 2024 - July 2024",
+    points: [
+      "Worked on real-world frontend projects using React.js and Tailwind CSS.",
+      "Collaborated in agile teams and followed modern development workflows.",
+    ],
+  };
+
+  const skillsData = [
+    {
+      category: "Frontend Technologies",
+      skills: [
+        { name: "HTML", icon: <FaHtml5 className="text-orange-500" /> },
+        { name: "CSS", icon: <FaCss3Alt className="text-blue-500" /> },
+        { name: "JavaScript", icon: <FaJs className="text-yellow-400" /> },
+      ],
+    },
+    {
+      category: "Programming Languages",
+      skills: [
+        { name: "C", icon: <FaCode className="text-gray-300" /> },
+        { name: "C++", icon: <SiCplusplus className="text-blue-500" /> },
+        { name: "Java (Basics)", icon: <FaCode className="text-red-500" /> },
+        {
+          name: "Python (Basics)",
+          icon: <FaPython className="text-blue-400" />,
+        },
+      ],
+    },
+    {
+      category: "Frameworks & Libraries",
+      skills: [
+        { name: "React.js", icon: <FaReact className="text-blue-400" /> },
+        {
+          name: "Tailwind CSS",
+          icon: <SiTailwindcss className="text-teal-400" />,
+        },
+        { name: "Bootstrap", icon: <FaCode className="text-purple-500" /> },
+      ],
+    },
+    {
+      category: "Core Concepts",
+      skills: [
+        { name: "DBMS", icon: <FaDatabase className="text-yellow-500" /> },
+        { name: "OOP", icon: <FaCode className="text-green-400" /> },
+      ],
+    },
+    {
+      category: "Tools",
+      skills: [
+        { name: "Git", icon: <FaGitAlt className="text-orange-500" /> },
+        { name: "Postman", icon: <SiPostman className="text-orange-600" /> },
+        { name: "Office Suite", icon: <FaTools className="text-blue-400" /> },
+      ],
+    },
+    {
+      category: "Databases",
+      skills: [
+        { name: "SQL", icon: <FaDatabase className="text-blue-500" /> },
+        { name: "MongoDB", icon: <SiMongodb className="text-green-500" /> },
+      ],
+    },
+    {
+      category: "Backend",
+      skills: [
+        {
+          name: "Node.js (Basics)",
+          icon: <FaNodeJs className="text-green-600" />,
+        },
+        {
+          name: "Express.js (Basics)",
+          icon: <SiExpress className="text-gray-400" />,
+        },
+      ],
+    },
+  ];
+
   return (
-    <div className="relative py-16 min-h-screen bg-gray-900 overflow-hidden">
-      {/* Background grid effect */}
-      <div className="absolute inset-0 z-0 opacity-5">
-        <div className="grid grid-cols-12 h-full">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="border-r border-gray-300"></div>
-          ))}
-        </div>
-        <div className="grid grid-rows-12 h-full">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="border-b border-gray-300"></div>
-          ))}
-        </div>
-      </div>
-
-      {/* Animated background nodes */}
-      <div className="absolute inset-0 z-0">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-indigo-500 opacity-30"
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              scale: Math.random() * 0.4 + 0.1,
-            }}
-            animate={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              transition: {
-                duration: Math.random() * 30 + 20,
-                repeat: Infinity,
-                repeatType: "mirror",
-              },
-            }}
-            style={{
-              width: `${Math.random() * 10 + 5}px`,
-              height: `${Math.random() * 10 + 5}px`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Cursor follower */}
-      <motion.div
-        className="fixed w-64 h-64 rounded-full bg-indigo-500 opacity-5 pointer-events-none z-0"
-        animate={{
-          x: cursorPosition.x - 32,
-          y: cursorPosition.y - 32,
-        }}
-        transition={{ type: "spring", damping: 30, stiffness: 200 }}
-      />
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        {/* Terminal effect at the top */}
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{
-            height: terminalVisible ? "auto" : 0,
-            opacity: terminalVisible ? 1 : 0,
-          }}
-          transition={{ duration: 0.5 }}
-          className="mx-auto max-w-3xl mb-16 overflow-hidden"
-        >
-          <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-lg">
-            <div className="flex items-center px-4 py-2 bg-gray-900 border-b border-gray-700">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              </div>
-              <div className="ml-4 text-gray-400 text-sm">~/about-me</div>
-            </div>
-            <div className="p-4 font-mono text-sm text-green-400">
-              <div className="flex">
-                <span className="text-purple-400">$</span>
-                <span className="ml-2">{typedText}</span>
-                <motion.span
-                  animate={{ opacity: [1, 0] }}
-                  transition={{
-                    duration: 0.8,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                  className="ml-1 w-2 h-4 bg-green-400 inline-block"
-                ></motion.span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
+    <div className="bg-gray-900 text-gray-100 py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-screen">
+      {/* Terminal-like header */}
+      <div className="max-w-6xl mx-auto mb-12">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center mb-20"
+          transition={{ duration: 0.5 }}
+          className="bg-gray-800 rounded-t-lg border border-gray-700 overflow-hidden"
         >
-          <div className="relative inline-block">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 relative z-10">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-cyan-400 to-purple-600">
-                &lt;About Me/&gt;
-              </span>
-            </h1>
+          <div className="bg-gray-900 px-4 py-2 flex items-center border-b border-gray-700">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <div className="ml-4 text-sm text-gray-400 flex-1 text-center">
+              about.js - Portfolio
+            </div>
+          </div>
+          <div className="p-4 font-mono text-sm">
             <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-indigo-500 via-cyan-400 to-purple-600"
-            ></motion.div>
-          </div>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            I'm a Software Developer specializing in MERN stack development with
-            a passion for creating innovative digital solutions.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 mb-24">
-          {/* Left column - About me */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-2 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-indigo-500/30 transition-all"
-          >
-            <div className="flex items-center space-x-2 mb-6">
-              <FiTerminal className="text-indigo-400" size={24} />
-              <h2 className="text-3xl font-bold text-white">Who I Am</h2>
-            </div>
-
-            <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 to-purple-600"></div>
-              <div className="pl-6 space-y-4">
-                <p className="text-gray-300">
-                  I'm{" "}
-                  <span className="text-indigo-400 font-semibold">
-                    Parbat Nil Bera
-                  </span>
-                  , a full-stack developer with expertise in the MERN stack
-                  (MongoDB, Express, React, Node.js). I'm currently pursuing a
-                  Master's in Computer Applications at Techno Main Salt Lake,
-                  focusing on advanced software development principles.
-                </p>
-                <p className="text-gray-300">
-                  I specialize in building end-to-end web applications,
-                  combining frontend expertise with backend capabilities to
-                  deliver complete solutions. My technical foundation includes
-                  React.js, Node.js, along with core programming languages like
-                  JavaScript, C++, and Python.
-                </p>
-                <p className="text-gray-300">
-                  My goal is to grow as a Software Development Engineer,
-                  continuously learning new technologies and architectural
-                  patterns to build scalable, maintainable applications that
-                  solve real-world challenges.
-                </p>
-              </div>
-            </div>
-
-            {/* Code snippet */}
-            <div className="mt-8 font-mono text-sm">
-              <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                <div className="text-gray-400">// My current status</div>
-                <div className="text-indigo-400">
-                  const <span className="text-cyan-400">currentFocus</span> ={" "}
-                  {`{`}
-                </div>
-                <div className="pl-4 text-green-400">
-                  studying: <span className="text-amber-400">'MCA'</span>,
-                </div>
-                <div className="pl-4 text-green-400">
-                  working:{" "}
-                  <span className="text-amber-400">
-                    'on real-world projects'
-                  </span>
-                  ,
-                </div>
-                <div className="pl-4 text-green-400">
-                  learning:{" "}
-                  <span className="text-amber-400">
-                    'advanced software patterns'
-                  </span>
-                </div>
-                <div className="text-indigo-400">{`}`};</div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right column - Skills */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-          >
-            {[
-              {
-                icon: <FiCode size={28} />,
-                title: "Web Development",
-                description:
-                  "Building responsive, full-stack web applications with modern MERN stack.",
-                color: "from-blue-500 to-indigo-600",
-              },
-              {
-                icon: <FiServer size={28} />,
-                title: "Backend Development",
-                description: "Creating robust APIs with Node.js and Express.",
-                color: "from-purple-500 to-pink-600",
-              },
-              {
-                icon: <FiLayout size={28} />,
-                title: "Frontend Engineering",
-                description:
-                  "Crafting engaging user interfaces with React.js and modern CSS.",
-                color: "from-cyan-500 to-blue-600",
-              },
-              {
-                icon: <FiDatabase size={28} />,
-                title: "Database Design",
-                description:
-                  "Working with SQL and NoSQL databases for efficient data management.",
-                color: "from-green-500 to-emerald-600",
-              },
-              {
-                icon: <FiGitBranch size={28} />,
-                title: "Version Control",
-                description:
-                  "Managing code with Git for collaborative development.",
-                color: "from-orange-500 to-red-600",
-              },
-              {
-                icon: <FiTool size={28} />,
-                title: "Problem Solving",
-                description:
-                  "Engineering elegant solutions to complex technical challenges.",
-                color: "from-yellow-500 to-amber-600",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all relative overflow-hidden group"
-              >
-                <div
-                  className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-sm"
-                  style={{
-                    background: `linear-gradient(to bottom right, ${item.color
-                      .split(" ")[0]
-                      .replace("from-", "")}, ${item.color
-                      .split(" ")[1]
-                      .replace("to-", "")})`,
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              {codeLines.map((line, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, x: -10 },
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: { delay: index * 0.08 },
+                    },
                   }}
-                ></div>
-                <div className="relative z-10">
-                  <div
-                    className={`mb-4 text-transparent bg-clip-text bg-gradient-to-r ${item.color}`}
+                  className="flex"
+                >
+                  <span className="text-gray-500 w-8">{index + 1}</span>
+                  <span
+                    className={`${
+                      line.includes("name")
+                        ? "text-green-400"
+                        : line.includes("function")
+                        ? "text-blue-400"
+                        : line.includes("class")
+                        ? "text-yellow-400"
+                        : line.includes("import") || line.includes("export")
+                        ? "text-purple-400"
+                        : line.includes("//")
+                        ? "text-gray-500"
+                        : line.includes("=")
+                        ? "text-blue-300"
+                        : "text-gray-300"
+                    }`}
                   >
-                    {item.icon}
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm">{item.description}</p>
-                </div>
-                <div
-                  className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                  style={{
-                    background: `linear-gradient(to right, ${item.color
-                      .split(" ")[0]
-                      .replace("from-", "")}, ${item.color
-                      .split(" ")[1]
-                      .replace("to-", "")})`,
-                  }}
-                ></div>
-              </motion.div>
-            ))}
-          </motion.div>
+                    {line}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Animated Code Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full opacity-5">
+          {[...Array(100)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute font-mono text-blue-400"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                fontSize: `${Math.random() * 0.8 + 0.5}rem`,
+                transform: `rotate(${Math.random() * 60 - 30}deg)`,
+              }}
+              animate={{
+                y: [0, Math.random() * 20 - 10],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: Math.random() * 5 + 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              {
+                [
+                  "<div>",
+                  "</div>",
+                  "<span>",
+                  "</span>",
+                  "{",
+                  "}",
+                  "</>",
+                  "&&",
+                  "||",
+                  "===",
+                  "function()",
+                  "=>",
+                  "const",
+                  "let",
+                  "import",
+                  "export",
+                  "return",
+                  "props",
+                  "useState",
+                  "useEffect",
+                  "map",
+                  "filter",
+                  "reduce",
+                  "async",
+                  "await",
+                  "promise",
+                  "<React.Fragment>",
+                  "ReactDOM",
+                ][Math.floor(Math.random() * 28)]
+              }
+            </motion.div>
+          ))}
         </div>
+      </div>
 
-        {/* Journey section */}
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-24"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="text-center mb-14"
         >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white inline-block relative">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">
-                &lt;My Journey/&gt;
-              </span>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600"
-              ></motion.div>
-            </h2>
-            <p className="text-gray-400 mt-2">
-              Tracing my path through education and professional development
-            </p>
+          <motion.h2
+            className="text-4xl font-mono font-bold text-blue-400 mb-2"
+            animate={{
+              textShadow: [
+                "0 0 5px rgba(59, 130, 246, 0)",
+                "0 0 15px rgba(59, 130, 246, 0.5)",
+                "0 0 5px rgba(59, 130, 246, 0)",
+              ],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            &lt;Parbat Nil Bera /&gt;
+          </motion.h2>
+          <div className="flex justify-center items-center">
+            <div className="h-px w-16 bg-blue-700"></div>
+            <motion.p
+              className="text-xl text-green-400 font-mono mx-4"
+              animate={{
+                opacity: [0.7, 1, 0.7],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              Software Developer
+            </motion.p>
+            <div className="h-px w-16 bg-blue-700"></div>
           </div>
+        </motion.div>
 
-          {/* Vertical timeline */}
-          <div className="relative">
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500 via-purple-600 to-cyan-500 md:transform md:-translate-x-1/2"></div>
-
+        {/* Tabs styled as terminal tabs */}
+        <motion.div
+          className="mb-8 flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="bg-gray-800 rounded-lg p-1 flex space-x-1 border border-gray-700 shadow-lg">
             {[
               {
-                year: "2023-Present",
-                title: "Master of Computer Applications",
-                description:
-                  "Pursuing MCA at Techno Main Salt Lake, focusing on advanced computing concepts and practical application development.",
-                details:
-                  "Specializing in software engineering practices, database management, and full-stack development.",
-                highlight: "Computer Application",
-                icon: <FiCpu />,
+                id: "education",
+                icon: <FaGraduationCap className="mr-2" />,
+                label: "Education",
               },
               {
-                year: "2024",
-                title: "Internship at Celebal Technologies",
-                description:
-                  "Gained hands-on experience in real-world projects, team collaboration, and software development methodologies.",
-                details:
-                  "Worked on developing web applications using React.js, contributed to backend services, and practiced agile development.",
-                highlight: "ReactJS",
-                icon: <FiMonitor />,
+                id: "internship",
+                icon: <FaBriefcase className="mr-2" />,
+                label: "Internship",
               },
               {
-                year: "2020-2023",
-                title: "Bachelor of Computer Applications",
-                description:
-                  "Completed BCA at Calcutta Institute of Engineering and Management with a strong foundation in computer science fundamentals.",
-                details:
-                  "Studied data structures, algorithms, OOP concepts, and built various programming projects.",
-                highlight: "Computer Application",
-                icon: <FiCode />,
+                id: "skills",
+                icon: <FaCode className="mr-2" />,
+                label: "Skills",
               },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className={`relative mb-16 md:mb-24 ${
-                  index % 2 === 0 ? "md:ml-auto md:mr-0" : "md:mr-auto md:ml-0"
-                } md:w-5/12`}
+            ].map((tab) => (
+              <motion.button
+                key={tab.id}
+                variants={tabVariants}
+                animate={activeTab === tab.id ? "active" : "inactive"}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-5 py-2 rounded-md font-medium text-sm transition-all duration-300 flex items-center ${
+                  activeTab === tab.id
+                    ? "bg-blue-800 text-white"
+                    : "bg-gray-900 text-gray-400 hover:text-gray-200"
+                }`}
+                onClick={() => setActiveTab(tab.id)}
               >
-                {/* Timeline node */}
-                <div
-                  className={`absolute left-0 top-0 md:left-auto ${
-                    index % 2 === 0 ? "md:-left-12" : "md:-right-12"
-                  } flex items-center justify-center z-10`}
-                >
-                  <div className="w-20 h-20 rounded-full bg-gray-800 border-4 border-indigo-500 flex items-center justify-center text-indigo-500 shadow-lg shadow-indigo-500/30">
-                    {item.icon}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div
-                  className={`ml-16 md:ml-0 pl-8 md:pl-0 relative bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-indigo-500/50 transition-all hover:shadow-lg hover:shadow-indigo-500/5`}
-                >
-                  <div className="absolute top-0 bottom-0 right-full w-8 md:hidden">
-                    <div className="absolute top-0 bottom-0 right-0 w-0.5 bg-gradient-to-b from-indigo-500 to-purple-600"></div>
-                    <div className="absolute top-10 right-0 w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
-                  </div>
-
-                  <div className="flex flex-wrap justify-between mb-4 items-center">
-                    <span className="inline-block px-4 py-1.5 bg-indigo-900/50 text-indigo-300 rounded-full text-sm font-medium">
-                      {item.year}
-                    </span>
-                    <span className="inline-block px-4 py-1.5 bg-purple-900/50 text-purple-300 rounded-full text-sm font-medium mt-2 md:mt-0">
-                      {item.highlight}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-300 mb-3">{item.description}</p>
-                  <p className="text-gray-400 text-sm">{item.details}</p>
-                </div>
-              </motion.div>
+                {tab.icon}
+                {tab.label}
+              </motion.button>
             ))}
           </div>
         </motion.div>
 
-        {/* Skills section */}
+        {/* Content based on active tab - now with terminal/code theme */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-24"
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          className="bg-gray-800 rounded-lg border border-gray-700 shadow-2xl overflow-hidden"
         >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white inline-block relative">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-indigo-600">
-                &lt;Technical Skills/&gt;
-              </span>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-500 to-indigo-600"
-              ></motion.div>
-            </h2>
-            <p className="text-gray-400 mt-2">
-              As a Software Development Engineer, I've developed expertise
-              across multiple technologies
-            </p>
+          {/* Tab header - like a terminal or code editor tab */}
+          <div className="bg-gray-900 px-4 py-2 border-b border-gray-700 flex items-center">
+            <div className="text-sm text-blue-400 font-mono">
+              {activeTab === "education" && "education.js"}
+              {activeTab === "internship" && "internship.js"}
+              {activeTab === "skills" && "skills.js"}
+            </div>
+            <div className="ml-auto text-xs text-gray-500 font-mono">
+              {activeTab === "education" && "4 items"}
+              {activeTab === "internship" && "1 item"}
+              {activeTab === "skills" && "7 categories"}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Development Stack",
-                color: "from-indigo-500 to-blue-600",
-                skills: [
-                  "MERN (MongoDB, Express, React, Node.js)",
-                  "HTML5, CSS3, JavaScript",
-                  "Tailwind CSS, Bootstrap",
-                  "RESTful API Design",
-                ],
-              },
-              {
-                title: "Programming Languages",
-                color: "from-purple-500 to-pink-600",
-                skills: [
-                  "JavaScript (ES6+)",
-                  "C/C++",
-                  "Python (Basics)",
-                  "Java (Basics)",
-                ],
-              },
-              {
-                title: "Tools & Concepts",
-                color: "from-cyan-500 to-blue-600",
-                skills: [
-                  "Git & GitHub",
-                  "SQL & DBMS",
-                  "OOP Principles",
-                  "Microsoft Office Suite",
-                ],
-              },
-            ].map((category, index) => (
+          <div className="p-6">
+            {activeTab === "education" && (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className="bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-indigo-500/30 transition-all relative overflow-hidden group"
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
-                <div
-                  className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r opacity-70"
-                  style={{
-                    background: `linear-gradient(to right, ${category.color
-                      .split(" ")[0]
-                      .replace("from-", "")}, ${category.color
-                      .split(" ")[1]
-                      .replace("to-", "")})`,
-                  }}
-                ></div>
+                {educationData.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    variants={index % 2 === 0 ? fadeInRight : fadeInLeft}
+                    className="bg-gray-900 rounded-lg p-6 hover:shadow-xl transition-all duration-300 transform border-l-2 border-blue-500 group"
+                    whileHover={{
+                      scale: 1.03,
+                      backgroundColor: "rgba(30, 58, 138, 0.2)",
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+                    }}
+                  >
+                    <div className="flex items-start">
+                      <motion.div
+                        className="mr-4 mt-1 bg-blue-900/50 p-2 rounded-lg"
+                        whileHover={{ rotate: 360 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <FaGraduationCap className="text-blue-400 text-2xl group-hover:text-blue-300" />
+                      </motion.div>
+                      <div>
+                        <motion.h3
+                          className="text-xl font-bold text-blue-300 group-hover:text-blue-200"
+                          whileHover={{ x: 3 }}
+                        >
+                          {item.degree}
+                        </motion.h3>
+                        <p className="text-gray-300">{item.institution}</p>
+                        {item.cgpa && (
+                          <motion.div
+                            className="text-green-400 font-mono mt-2 flex items-center"
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <span className="text-gray-500">const</span>
+                            <span className="text-blue-400 mx-1">cgpa</span>
+                            <span className="text-gray-500">=</span>
+                            <span className="text-yellow-400 ml-1">
+                              {item.cgpa};
+                            </span>
+                          </motion.div>
+                        )}
+                        <p className="text-gray-500 mt-1 font-mono">
+                          // {item.year}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
 
-                <h3
-                  className={`text-xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r ${category.color}`}
-                >
-                  {category.title}
-                </h3>
-
-                <div className="space-y-4">
-                  {category.skills.map((skill, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: 0.1 * i }}
-                      viewport={{ once: true }}
-                      className="flex items-center"
+            {activeTab === "internship" && (
+              <motion.div
+                variants={fadeInUp}
+                className="bg-gray-900 rounded-lg p-8 border-l-2 border-blue-500"
+              >
+                <div className="flex flex-col md:flex-row md:items-start">
+                  <motion.div
+                    className="mb-6 md:mb-0 md:mr-6 bg-blue-900/50 p-4 rounded-lg inline-block"
+                    animate={{ rotate: [0, 10, 0, -10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity }}
+                  >
+                    <FaBriefcase className="text-blue-400 text-4xl" />
+                  </motion.div>
+                  <div>
+                    <div className="font-mono text-sm text-gray-500 mb-2">
+                      // Professional internship
+                    </div>
+                    <motion.h3
+                      className="text-2xl font-bold text-blue-300"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 }}
                     >
-                      <div
-                        className="w-2 h-8 rounded-full bg-gradient-to-b mr-4"
-                        style={{
-                          background: `linear-gradient(to bottom, ${category.color
-                            .split(" ")[0]
-                            .replace("from-", "")}, ${category.color
-                            .split(" ")[1]
-                            .replace("to-", "")})`,
-                        }}
-                      ></div>
-                      <div className="font-mono text-gray-300">{skill}</div>
-                    </motion.div>
-                  ))}
+                      {internshipData.role}
+                    </motion.h3>
+                    <motion.p
+                      className="text-xl text-green-400 font-mono"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      {internshipData.company}
+                    </motion.p>
+                    <motion.p
+                      className="text-gray-500 mb-6 font-mono"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      // {internshipData.duration}
+                    </motion.p>
+
+                    <div className="font-mono text-sm text-blue-400 mb-2">
+                      {"function achievements() {"}
+                    </div>
+                    <ul className="space-y-4 ml-4">
+                      {internshipData.points.map((point, index) => (
+                        <motion.li
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.5 + index * 0.2 }}
+                          className="flex items-start group"
+                          whileHover={{ x: 5 }}
+                        >
+                          <motion.span
+                            className="text-gray-500 font-mono mr-2"
+                            whileHover={{ scale: 1.2 }}
+                          >
+                            {"// >"}
+                          </motion.span>
+                          <span className="text-gray-300 group-hover:text-blue-200">
+                            {point}
+                          </span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                    <div className="font-mono text-sm text-blue-400 mt-2">
+                      {"}"}
+                    </div>
+                  </div>
                 </div>
-
-                <div
-                  className="absolute bottom-0 right-0 w-32 h-32 rounded-full bg-gradient-to-r opacity-5 -mr-16 -mb-16 blur-xl"
-                  style={{
-                    background: `linear-gradient(to right, ${category.color
-                      .split(" ")[0]
-                      .replace("from-", "")}, ${category.color
-                      .split(" ")[1]
-                      .replace("to-", "")})`,
-                  }}
-                ></div>
               </motion.div>
-            ))}
-          </div>
-        </motion.div>
+            )}
 
-        {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center mt-16 pb-8"
-        >
-          <div className="inline-block border-t border-gray-700 pt-4 px-8">
-            <p className="text-gray-400 text-sm font-mono">
-              <span className="text-indigo-400">const</span>{" "}
-              <span className="text-cyan-400">connect</span> ={" "}
-              <span className="text-purple-400">() =&gt;</span>{" "}
-              <span className="text-white">{`{`}</span>{" "}
-              <span className="text-green-400">
-                console.log("Let's build something amazing together!")
-              </span>{" "}
-              <span className="text-white">{`}`}</span>;
-            </p>
+            {activeTab === "skills" && (
+              <motion.div
+                variants={staggerContainer}
+                initial="hidden"
+                animate="visible"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {skillsData.map((category, index) => (
+                  <motion.div
+                    key={index}
+                    variants={fadeInUp}
+                    className="bg-gray-900 rounded-lg p-5 hover:shadow-xl transition-all duration-300 border-t border-gray-700 group"
+                    whileHover={{
+                      scale: 1.05,
+                      y: -5,
+                      boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+                    }}
+                  >
+                    <motion.div
+                      className="flex items-center mb-4"
+                      whileHover={{ x: 5 }}
+                    >
+                      <motion.div
+                        className="text-xl"
+                        animate={{
+                          rotateY: [0, 180, 360],
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          repeatType: "loop",
+                          repeatDelay: 2,
+                        }}
+                      >
+                        <FaCode className="text-blue-500" />
+                      </motion.div>
+                      <div className="ml-3">
+                        <span className="text-gray-500 font-mono text-xs">
+                          import
+                        </span>
+                        <h3 className="text-lg font-semibold text-blue-400 group-hover:text-blue-300 font-mono">
+                          {category.category}
+                        </h3>
+                      </div>
+                    </motion.div>
+                    <div className="font-mono text-xs text-gray-500 mb-2">
+                      {"const skills = ["}
+                    </div>
+                    <div className="flex flex-wrap mb-2 ml-4">
+                      {category.skills.map((skill, i) => (
+                        <motion.div
+                          key={i}
+                          className="m-1 px-3 py-1 bg-gray-900 border border-gray-700 text-gray-300 rounded-md text-sm flex items-center"
+                          whileHover={{
+                            scale: 1.1,
+                            backgroundColor: "#1E40AF",
+                            color: "#ffffff",
+                          }}
+                          whileTap={{ scale: 0.95 }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.1 }}
+                        >
+                          <span className="mr-2">{skill.icon}</span>
+                          {skill.name}
+                        </motion.div>
+                      ))}
+                    </div>
+                    <div className="font-mono text-xs text-gray-500">
+                      {"];"}
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>
     </div>
   );
-};
-
-export default About;
+}

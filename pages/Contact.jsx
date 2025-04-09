@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiMail, FiPhone, FiGithub, FiLinkedin, FiSend } from "react-icons/fi";
+import {
+  FiMail,
+  FiPhone,
+  FiGithub,
+  FiLinkedin,
+  FiSend,
+  FiCode,
+  FiTerminal,
+} from "react-icons/fi";
 import { useForm } from "react-hook-form";
 
 const Contact = () => {
@@ -21,23 +29,77 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
-    e.target.submit(data);
+    setIsSubmitting(true);
+
+    try {
+      await e.target.submit(data);
+      setSubmitted(true);
+      reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
   return (
-    <div className="py-28 min-h-screen">
-      <div className="container mx-auto px-4 md:px-6">
+    <div className="py-28 min-h-screen bg-gray-900 relative">
+      {/* Code-themed background elements */}
+      <div className="absolute inset-0 overflow-hidden opacity-5 pointer-events-none">
+        <div className="text-xs md:text-sm text-green-500 font-mono leading-relaxed p-4">
+          {Array(20)
+            .fill(0)
+            .map((_, i) => (
+              <div key={i} className="mb-1">
+                {`const connect = async () => {`}
+                <br />
+                {`  try {`}
+                <br />
+                {`    await sendMessage({`}
+                <br />
+                {`      from: "you@example.com",`}
+                <br />
+                {`      to: "parbatnilbera743@gmail.com",`}
+                <br />
+                {`      subject: "Let's collaborate",`}
+                <br />
+                {`      body: "I'd like to work with you!"`}
+                <br />
+                {`    });`}
+                <br />
+                {`    return true;`}
+                <br />
+                {`  } catch (error) {`}
+                <br />
+                {`    console.error(error);`}
+                <br />
+                {`    return false;`}
+                <br />
+                {`  }`}
+                <br />
+                {`};`}
+              </div>
+            ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent mb-4">
-            Get In Touch
-          </h1>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <div className="flex items-center justify-center mb-4">
+            <FiTerminal className="text-3xl mr-2 text-indigo-500" />
+            <h1 className="text-4xl md:text-5xl font-bold font-mono bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+              Connect( )
+            </h1>
+          </div>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto font-light">
+            <span className="text-green-500">// </span>
             Feel free to reach out for collaborations, opportunities, or just a
             friendly chat about web development.
           </p>
@@ -49,37 +111,46 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-bold text-white mb-6">
-              Contact Information
-            </h2>
+            <div className="flex items-center mb-6">
+              <div className="h-5 w-5 rounded-full bg-green-500 mr-2"></div>
+              <h2 className="text-2xl font-bold text-white font-mono">
+                contact.info
+              </h2>
+            </div>
 
             <div className="space-y-6 mb-8">
-              <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4 bg-gray-800/40 backdrop-blur-sm p-4 rounded-lg border-l-4 border-indigo-500 hover:bg-gray-800/60 transition-all">
                 <div className="bg-indigo-600/20 p-3 rounded-lg">
                   <FiMail className="text-indigo-500 text-xl" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white">Email</h3>
-                  <p className="text-gray-400">parbatnilbera743@gmail.com</p>
+                  <h3 className="text-lg font-semibold text-white font-mono">
+                    email:
+                  </h3>
+                  <p className="text-indigo-400">parbatnilbera743@gmail.com</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4 bg-gray-800/40 backdrop-blur-sm p-4 rounded-lg border-l-4 border-indigo-500 hover:bg-gray-800/60 transition-all">
                 <div className="bg-indigo-600/20 p-3 rounded-lg">
                   <FiPhone className="text-indigo-500 text-xl" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white">Phone</h3>
-                  <p className="text-gray-400">(+91) 9163419935</p>
+                  <h3 className="text-lg font-semibold text-white font-mono">
+                    phone:
+                  </h3>
+                  <p className="text-indigo-400">(+91) 9163419935</p>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4 bg-gray-800/40 backdrop-blur-sm p-4 rounded-lg border-l-4 border-indigo-500 hover:bg-gray-800/60 transition-all">
                 <div className="bg-indigo-600/20 p-3 rounded-lg">
                   <FiGithub className="text-indigo-500 text-xl" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white">GitHub</h3>
+                  <h3 className="text-lg font-semibold text-white font-mono">
+                    github:
+                  </h3>
                   <a
                     href="https://github.com/ParbatNilBera"
                     target="_blank"
@@ -91,12 +162,14 @@ const Contact = () => {
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4 bg-gray-800/40 backdrop-blur-sm p-4 rounded-lg border-l-4 border-indigo-500 hover:bg-gray-800/60 transition-all">
                 <div className="bg-indigo-600/20 p-3 rounded-lg">
                   <FiLinkedin className="text-indigo-500 text-xl" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-white">LinkedIn</h3>
+                  <h3 className="text-lg font-semibold text-white font-mono">
+                    linkedin:
+                  </h3>
                   <a
                     href="https://www.linkedin.com/in/parbatnilbera"
                     target="_blank"
@@ -109,11 +182,15 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
-              <h3 className="text-xl font-semibold text-white mb-3">
-                Let's create something amazing together
-              </h3>
+            <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700 rounded-xl p-6 shadow-lg">
+              <div className="flex items-center mb-3">
+                <FiCode className="text-green-500 mr-2" />
+                <h3 className="text-xl font-semibold text-white font-mono">
+                  collaboration.js
+                </h3>
+              </div>
               <p className="text-gray-400">
+                <span className="text-green-500">// </span>
                 I'm currently open to freelance projects, collaboration
                 opportunities, and junior developer positions. Feel free to
                 reach out if you think we'd be a good fit!
@@ -126,10 +203,17 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-gray-800/20 backdrop-blur-sm border border-gray-700 rounded-xl p-6 md:p-8">
-              <h2 className="text-2xl font-bold text-white mb-6">
-                Send a Message
-              </h2>
+            <div className="bg-gray-800/20 backdrop-blur-sm border border-gray-700 rounded-xl p-6 md:p-8 shadow-lg">
+              <div className="flex items-center mb-6">
+                <div className="flex space-x-2 mr-3">
+                  <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                  <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                </div>
+                <h2 className="text-2xl font-bold text-white font-mono">
+                  sendMessage( )
+                </h2>
+              </div>
 
               {submitted ? (
                 <motion.div
@@ -153,26 +237,34 @@ const Contact = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    Message Sent!
+                  <h3 className="text-xl font-semibold text-white font-mono mb-2">
+                    // Success!
                   </h3>
                   <p className="text-gray-400">
-                    Thanks for reaching out. I'll get back to you soon.
+                    Message sent successfully. I'll get back to you soon.
                   </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="mt-4 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                  >
+                    Send another message
+                  </button>
                 </motion.div>
               ) : (
                 <form
                   onSubmit={handleSubmit(onSubmit)}
                   action="https://formspree.io/f/xgvalpok"
                   method="POST"
+                  className="relative"
                 >
+                  <div className="absolute -left-6 top-0 bottom-0 border-l-2 border-dashed border-gray-700"></div>
                   <div className="space-y-4">
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-400 mb-1"
+                        className="block text-sm font-medium text-green-500 font-mono mb-1"
                       >
-                        Your Name
+                        const name =
                       </label>
                       <input
                         type="text"
@@ -184,14 +276,14 @@ const Contact = () => {
                             message: "Name must be at least 2 characters",
                           },
                         })}
-                        className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        className={`w-full px-4 py-3 bg-gray-800/50 border ${
                           errors.name ? "border-red-500" : "border-gray-600"
-                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500`}
-                        placeholder="John Doe"
+                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 font-mono`}
+                        placeholder='"John Doe"'
                       />
                       {errors.name && (
                         <p className="mt-1 text-sm text-red-500">
-                          {errors.name.message}
+                          {`// Error: ${errors.name.message}`}
                         </p>
                       )}
                     </div>
@@ -199,9 +291,9 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="email"
-                        className="block text-sm font-medium text-gray-400 mb-1"
+                        className="block text-sm font-medium text-green-500 font-mono mb-1"
                       >
-                        Email Address
+                        const email =
                       </label>
                       <input
                         type="email"
@@ -213,14 +305,14 @@ const Contact = () => {
                             message: "Invalid email address",
                           },
                         })}
-                        className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        className={`w-full px-4 py-3 bg-gray-800/50 border ${
                           errors.email ? "border-red-500" : "border-gray-600"
-                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500`}
-                        placeholder="john@example.com"
+                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 font-mono`}
+                        placeholder='"john@example.com"'
                       />
                       {errors.email && (
                         <p className="mt-1 text-sm text-red-500">
-                          {errors.email.message}
+                          {`// Error: ${errors.email.message}`}
                         </p>
                       )}
                     </div>
@@ -228,9 +320,9 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="subject"
-                        className="block text-sm font-medium text-gray-400 mb-1"
+                        className="block text-sm font-medium text-green-500 font-mono mb-1"
                       >
-                        Subject
+                        const subject =
                       </label>
                       <input
                         type="text"
@@ -242,14 +334,14 @@ const Contact = () => {
                             message: "Subject must be at least 3 characters",
                           },
                         })}
-                        className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        className={`w-full px-4 py-3 bg-gray-800/50 border ${
                           errors.subject ? "border-red-500" : "border-gray-600"
-                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500`}
-                        placeholder="Project Collaboration"
+                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 font-mono`}
+                        placeholder='"Project Collaboration"'
                       />
                       {errors.subject && (
                         <p className="mt-1 text-sm text-red-500">
-                          {errors.subject.message}
+                          {`// Error: ${errors.subject.message}`}
                         </p>
                       )}
                     </div>
@@ -257,9 +349,9 @@ const Contact = () => {
                     <div>
                       <label
                         htmlFor="message"
-                        className="block text-sm font-medium text-gray-400 mb-1"
+                        className="block text-sm font-medium text-green-500 font-mono mb-1"
                       >
-                        Message
+                        const message =
                       </label>
                       <textarea
                         id="message"
@@ -271,14 +363,14 @@ const Contact = () => {
                             message: "Message must be at least 10 characters",
                           },
                         })}
-                        className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                        className={`w-full px-4 py-3 bg-gray-800/50 border ${
                           errors.message ? "border-red-500" : "border-gray-600"
-                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500`}
-                        placeholder="Hello, I'd like to discuss a project..."
+                        } rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-white placeholder-gray-500 font-mono`}
+                        placeholder='"Hello, I would like to discuss a project..."'
                       ></textarea>
                       {errors.message && (
                         <p className="mt-1 text-sm text-red-500">
-                          {errors.message.message}
+                          {`// Error: ${errors.message.message}`}
                         </p>
                       )}
                     </div>
@@ -287,7 +379,7 @@ const Contact = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg shadow-lg hover:shadow-indigo-500/30 transition-all text-white font-medium flex items-center justify-center"
+                        className="w-full px-6 py-3 bg-gradient-to-r from-green-600 to-indigo-600 rounded-lg shadow-lg hover:shadow-green-500/30 transition-all text-white font-medium flex items-center justify-center hover:from-green-500 hover:to-indigo-500"
                       >
                         {isSubmitting ? (
                           <svg
@@ -313,7 +405,7 @@ const Contact = () => {
                         ) : (
                           <FiSend className="mr-2" />
                         )}
-                        {isSubmitting ? "Sending..." : "Send Message"}
+                        {isSubmitting ? "sendMessage()" : "sendMessage()"}
                       </button>
                     </div>
                   </div>
