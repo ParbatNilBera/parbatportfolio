@@ -18,7 +18,6 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -26,20 +25,8 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initialize on component mount
-    handleResize();
-
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Close mobile menu on route change
@@ -85,7 +72,6 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
-          {/* Logo */}
           <Link to="/" className="flex items-center">
             <div className="flex items-center space-x-2">
               <FiTerminal className="text-indigo-400 text-xl" />
@@ -139,31 +125,14 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* External Links for mobile in desktop mode */}
-          <div className="md:hidden flex items-center space-x-2">
-            {externalLinks.map((link) => (
-              <a
-                key={link.title}
-                href={link.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-1 p-2 rounded-md font-mono text-emerald-400 hover:text-emerald-300 hover:bg-emerald-900/20 transition-all"
-                aria-label={link.title}
-              >
-                <span>{link.icon}</span>
-                <span className="text-xs font-bold">{link.title}</span>
-              </a>
-            ))}
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white transition-colors focus:outline-none bg-gray-800/70 p-2 rounded-md ml-2"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-gray-300 hover:text-white transition-colors focus:outline-none bg-gray-800/70 p-2 rounded-md"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+          </button>
         </div>
       </div>
 
@@ -188,6 +157,22 @@ const Navbar = () => {
               <span className="text-indigo-400">{link.icon}</span>
               <span>{link.title}</span>
             </Link>
+          ))}
+
+          <div className="border-t border-gray-800 my-2"></div>
+
+          {/* External Links in mobile menu */}
+          {externalLinks.map((link) => (
+            <a
+              key={link.title}
+              href={link.path}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-3 py-3 px-2 rounded-md my-1 font-mono text-emerald-400 hover:bg-emerald-900/20"
+            >
+              <span>{link.icon}</span>
+              <span className="font-bold">{link.title}</span>
+            </a>
           ))}
         </div>
       </motion.div>
