@@ -219,40 +219,40 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation - UPDATED FOR MOBILE RESPONSIVENESS */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex bg-gray-800 p-1 rounded-lg shadow-md border border-gray-700">
+          <div className="flex flex-col sm:flex-row bg-gray-800 p-1 rounded-lg shadow-md border border-gray-700 w-full max-w-md">
             <button
               onClick={() => setActiveTab("web")}
-              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+              className={`px-4 py-3 rounded-md font-medium flex items-center justify-center sm:justify-start gap-2 transition-all mb-1 sm:mb-0 ${
                 activeTab === "web"
                   ? "bg-indigo-600 text-white shadow-lg"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <FiLayout />
+              <FiLayout className="flex-shrink-0" />
               <span>Web Dev</span>
             </button>
             <button
               onClick={() => setActiveTab("programming")}
-              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+              className={`px-4 py-3 rounded-md font-medium flex items-center justify-center sm:justify-start gap-2 transition-all mb-1 sm:mb-0 ${
                 activeTab === "programming"
                   ? "bg-purple-600 text-white shadow-lg"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <FiTerminal />
+              <FiTerminal className="flex-shrink-0" />
               <span>Programming</span>
             </button>
             <button
               onClick={() => setActiveTab("competencies")}
-              className={`px-6 py-2 rounded-md font-medium flex items-center gap-2 transition-all ${
+              className={`px-4 py-3 rounded-md font-medium flex items-center justify-center sm:justify-start gap-2 transition-all ${
                 activeTab === "competencies"
                   ? "bg-blue-600 text-white shadow-lg"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <FiCpu />
+              <FiCpu className="flex-shrink-0" />
               <span>Core Skills</span>
             </button>
           </div>
