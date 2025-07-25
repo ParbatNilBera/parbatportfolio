@@ -19,7 +19,7 @@ const Education = () => {
       institution: "Techno Main SaltLake",
       period: "2023-2025",
       location: "Kolkata, West Bengal",
-      gpa: "7.69 CGPA",
+      gpa: "8.21 CGPA",
       description:
         "Currently pursuing advanced studies in computer applications, focusing on modern development technologies and software engineering principles.",
       icon: <FiCpu className="text-2xl" />,

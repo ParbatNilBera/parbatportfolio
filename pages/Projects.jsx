@@ -4,6 +4,7 @@ import { FiExternalLink, FiGithub, FiCode, FiFilter } from "react-icons/fi";
 import minor from "/images/minor.png";
 import major from "/images/major.png";
 import ecommerce from "/images/Ecommerce.png";
+import interviewBucket from "/images/InterviewBucket.png";
 
 const Projects = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -56,9 +57,31 @@ const Projects = () => {
       codePreview:
         "const [session, setSession] = useState(null);\n\nuseEffect(() => {\n  socket.on('live-session', (data) => {\n    setSession(data);\n    startAttendanceTracking();\n  });\n}, []);",
     },
-    // Frontend - Major
+
+    //Backend Minor
     {
       id: 3,
+      title: "Interview Bucket",
+      description:
+        "An AI-powered interview preparation platform that dynamically generates question-and-answer sessions tailored to the user's role, subject, and experience level. Leveraging generative AI, the app personalizes mock interviews for an effective and focused learning experience. Includes clean UI, role selection, and seamless navigation across devices.",
+      image: interviewBucket, // replace with your actual image import
+      category: ["fullstack", "major", "ai", "mern"],
+      tags: [
+        "React.js",
+        "Tailwind CSS",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Google Gemini",
+      ],
+      liveLink: "https://interview-bucket.vercel.app/",
+      sourceLink: "https://github.com/ParbatNilBera/Interview-bucket-FE",
+      codePreview:
+        "const generateQA = async (role, subject, experience) => {\n  const response = await axios.post('/api/generate', {\n    role, subject, experience\n  });\n  setQA(response.data);\n};",
+    },
+    // Frontend - Major
+    {
+      id: 4,
       title: "E-Commerce Website",
       description:
         "A comprehensive online shopping platform featuring product listings, shopping cart functionality, and advanced filtering options. Built with a responsive design to provide seamless navigation and enhanced user experience across all devices.",
@@ -72,7 +95,7 @@ const Projects = () => {
     },
     // Frontend - Mini Projects
     {
-      id: 4,
+      id: 5,
       title: "Firebase Contact App",
       description:
         "A streamlined contact management application that allows users to create, store, and manage contacts with Firebase backend integration. Features real-time data synchronization and responsive design.",
@@ -85,20 +108,20 @@ const Projects = () => {
         "useEffect(() => {\n  const contactsRef = collection(db, 'contacts');\n  const q = query(contactsRef, where('userId', '==', user.uid));\n  \n  onSnapshot(q, (snapshot) => {\n    const contactsArray = [];\n    snapshot.forEach((doc) => {\n      contactsArray.push({ id: doc.id, ...doc.data() });\n    });\n    setContacts(contactsArray);\n  });\n}, [user]);",
     },
     {
-      id: 5,
+      id: 6,
       title: "Dice Game Application",
       description:
         "An interactive dice game where players guess outcomes to earn points. Features include random dice generation, score tracking, and penalties for incorrect guesses, all wrapped in an engaging user interface.",
       image: "/api/placeholder/600/400",
       category: ["frontend", "mini", "react"],
-      tags: ["React.js", "Tailwind CSS", "Game "],
+      tags: ["React.js", "Tailwind CSS", "Game ."],
       liveLink: "https://parbatnil-dicegame.netlify.app",
       sourceLink: "https://github.com/ParbatNilBera/Dice-Game",
       codePreview:
         "const rollDice = () => {\n  const randomNumber = Math.floor(Math.random() * 6) + 1;\n  setDiceNumber(randomNumber);\n  \n  if (selectedNumber === randomNumber) {\n    setScore(prev => prev + randomNumber);\n  } else {\n    setScore(prev => prev - 2);\n  }\n};",
     },
     {
-      id: 6,
+      id: 7,
       title: "Todo Application",
       description:
         "A feature-rich task management application with complete CRUD functionality. Users can create, read, update, and delete tasks with an intuitive interface, task prioritization, and filtering options.",

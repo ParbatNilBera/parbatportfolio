@@ -46,12 +46,12 @@ const Skills = () => {
       color: "text-teal-400",
       level: 80,
     },
-    { name: "Node.js", icon: <DiNodejs />, color: "text-green-500", level: 40 },
+    { name: "Node.js", icon: <DiNodejs />, color: "text-green-500", level: 70 },
     {
       name: "Express.js",
       icon: <SiExpress />,
       color: "text-gray-400",
-      level: 40,
+      level: 70,
     },
   ];
 
